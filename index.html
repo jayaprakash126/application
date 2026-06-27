@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LUXE — Premium Fashion House</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav-header" id="nav">
+    <div class="nav-inner">
+      <nav class="nav-left">
+        <a href="pages/shop.html">Shop</a>
+        <a href="pages/collections.html">Collections</a>
+        <a href="pages/about.html">Atelier</a>
+      </nav>
+      <a href="index.html" class="nav-logo">LUXE</a>
+      <nav class="nav-right">
+        <a href="#">Search</a>
+        <a href="#">Account</a>
+        <a href="pages/cart.html" class="nav-cart">Cart <span class="cart-count" id="cartCount">0</span></a>
+      </nav>
+    </div>
+    <div class="nav-ticker">
+      <span>Free shipping on orders over ₹15,000 &nbsp;·&nbsp; New collection: The Dusk Edit &nbsp;·&nbsp; Complimentary gift wrapping available</span>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-media">
+      <div class="hero-gradient"></div>
+      <div class="hero-grid-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">New Season — SS 2026</p>
+      <h1 class="hero-headline">
+        Dressed<br/>
+        <em>in Quiet</em><br/>
+        Luxury
+      </h1>
+      <p class="hero-sub">Considered garments for the unhurried life.</p>
+      <div class="hero-cta-group">
+        <a href="pages/shop.html" class="btn-primary">Explore Collection</a>
+        <a href="pages/collections.html" class="btn-ghost">View Lookbook</a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- CATEGORY STRIP -->
+  <section class="category-strip">
+    <div class="container">
+      <div class="category-grid">
+        <a href="pages/shop.html?cat=women" class="cat-card cat-women">
+          <div class="cat-img cat-img-women"></div>
+          <div class="cat-label">
+            <span class="cat-name">Women</span>
+            <span class="cat-arrow">→</span>
+          </div>
+        </a>
+        <a href="pages/shop.html?cat=men" class="cat-card cat-men">
+          <div class="cat-img cat-img-men"></div>
+          <div class="cat-label">
+            <span class="cat-name">Men</span>
+            <span class="cat-arrow">→</span>
+          </div>
+        </a>
+        <a href="pages/shop.html?cat=accessories" class="cat-card cat-acc">
+          <div class="cat-img cat-img-acc"></div>
+          <div class="cat-label">
+            <span class="cat-name">Accessories</span>
+            <span class="cat-arrow">→</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PRODUCTS -->
+  <section class="featured-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">New Arrivals</h2>
+        <a href="pages/shop.html" class="section-link">See all →</a>
+      </div>
+      <div class="products-grid" id="featuredProducts">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- EDITORIAL BAND -->
+  <section class="editorial-band">
+    <div class="editorial-inner">
+      <div class="editorial-text">
+        <p class="ed-label">The Dusk Edit</p>
+        <h2 class="ed-title">Shades woven<br/><em>from last light</em></h2>
+        <p class="ed-body">Our autumn palette borrows from the hour between gold and dark — amber, rust, and deep slate — in fabrics that hold their color like evening holds warmth.</p>
+        <a href="pages/collections.html" class="btn-primary btn-dark">View Editorial</a>
+      </div>
+      <div class="editorial-visual">
+        <div class="editorial-swatch-grid">
+          <div class="swatch sw-1"></div>
+          <div class="swatch sw-2"></div>
+          <div class="swatch sw-3"></div>
+          <div class="swatch sw-4"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BESTSELLERS -->
+  <section class="bestsellers-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Best Sellers</h2>
+        <a href="pages/shop.html" class="section-link">See all →</a>
+      </div>
+      <div class="products-grid" id="bestsellerProducts"></div>
+    </div>
+  </section>
+
+  <!-- TRUST PILLARS -->
+  <section class="trust-section">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item">
+          <div class="trust-icon">✦</div>
+          <h3>Ethically Made</h3>
+          <p>Every garment is crafted in certified ateliers with fair wages and sustainable practices.</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">◈</div>
+          <h3>Free Returns</h3>
+          <p>30-day free returns on all orders. No questions, no hassle.</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">◇</div>
+          <h3>Premium Packaging</h3>
+          <p>Delivered in our signature black box, ready for gifting or keeping.</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">◉</div>
+          <h3>Expert Styling</h3>
+          <p>Personal styling consultations available — book online or in store.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="newsletter-inner">
+        <h2 class="newsletter-title">The Inner Circle</h2>
+        <p class="newsletter-sub">Early access to new collections, private sales, and editorial dispatches — for those who prefer to know first.</p>
+        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+          <input type="email" placeholder="Your email address" class="newsletter-input" required />
+          <button type="submit" class="btn-primary">Join</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <p class="footer-logo">LUXE</p>
+          <p class="footer-tagline">Considered fashion since 2018.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Shop</h4>
+            <a href="pages/shop.html">Women</a>
+            <a href="pages/shop.html">Men</a>
+            <a href="pages/shop.html">Accessories</a>
+            <a href="pages/collections.html">Collections</a>
+          </div>
+          <div class="footer-col">
+            <h4>Company</h4>
+            <a href="pages/about.html">Our Story</a>
+            <a href="pages/about.html">Sustainability</a>
+            <a href="#">Careers</a>
+            <a href="#">Press</a>
+          </div>
+          <div class="footer-col">
+            <h4>Support</h4>
+            <a href="#">Size Guide</a>
+            <a href="#">Shipping</a>
+            <a href="#">Returns</a>
+            <a href="#">Contact</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 LUXE. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

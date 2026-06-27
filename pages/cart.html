@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cart — LUXE</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="nav-header" id="nav">
+    <div class="nav-inner">
+      <nav class="nav-left">
+        <a href="shop.html">Shop</a>
+        <a href="collections.html">Collections</a>
+        <a href="about.html">Atelier</a>
+      </nav>
+      <a href="../index.html" class="nav-logo">LUXE</a>
+      <nav class="nav-right">
+        <a href="#">Search</a>
+        <a href="#">Account</a>
+        <a href="cart.html" class="nav-cart">Cart <span class="cart-count" id="cartCount">0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="cart-layout">
+    <div>
+      <h1 class="cart-title">Your Cart</h1>
+      <div id="cartItems"></div>
+      <a href="shop.html" style="display:inline-block;margin-top:32px;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);text-decoration:none;">← Continue Shopping</a>
+    </div>
+    <div>
+      <div class="cart-summary">
+        <h2 class="cart-summary-title">Order Summary</h2>
+        <div class="summary-row"><span>Subtotal</span><span id="subtotal">₹0</span></div>
+        <div class="summary-row"><span>Shipping</span><span id="shipping">Free</span></div>
+        <div class="summary-row"><span>Tax (18% GST)</span><span id="tax">₹0</span></div>
+        <div class="summary-row total"><span>Total</span><span id="total">₹0</span></div>
+        <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+        <p style="font-size:11px;color:var(--mid);text-align:center;margin-top:16px;letter-spacing:0.06em;">Secure checkout · Free returns · Gift wrapping available</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2026 LUXE. All rights reserved.</p>
+        <div class="footer-legal"><a href="#">Privacy</a><a href="#">Terms</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/data.js"></script>
+  <script>
+    function renderCart() {
+      const el = document.getElementById('cartItems');
+      if (!cart.length) {
+        el.innerHTML = `<div style="padding:60px 0;text-align:center;color:var(--mid);">
+          <p style="font-family:var(--ff-display);font-size:28px;margin-bottom:12px;">Your cart is empty</p>
+          <a href="shop.html" class="btn-primary" style="display:inline-block;margin-top:24px;">Start Shopping</a>
+        </div>`;
+        return;
+      }
+      el.innerHTML = cart.map(item => {
+        const p = PRODUCTS.find(x => x.id === item.id);
+        return `
+          <div class="cart-item">
+            <div class="cart-item-img" style="background:${p.color};"></div>
+            <div class="cart-item-details">
+              <p class="cart-item-name">${item.name}</p>
+              <p class="cart-item-meta">Size: ${item.size} &nbsp;·&nbsp; Qty: ${item.qty}</p>
+              <p class="cart-item-price">${formatPrice(item.price * item.qty)}</p>
+              <button class="cart-item-remove" onclick="removeItem(${item.id},'${item.size}')">Remove</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+      updateSummary();
+    }
+
+    function removeItem(id, size) {
+      removeFromCart(id, size);
+      renderCart();
+    }
+
+    function updateSummary() {
+      const subtotal = cart.reduce((s,i) => s + i.price * i.qty, 0);
+      const tax = Math.round(subtotal * 0.18);
+      const total = subtotal + tax;
+      const shipping = subtotal >= 15000 ? 'Free' : formatPrice(350);
+      document.getElementById('subtotal').textContent = formatPrice(subtotal);
+      document.getElementById('tax').textContent = formatPrice(tax);
+      document.getElementById('shipping').textContent = shipping;
+      document.getElementById('total').textContent = formatPrice(total + (subtotal < 15000 ? 350 : 0));
+    }
+
+    function checkout() {
+      if (!cart.length) return showToast('Your cart is empty.');
+      showToast('Redirecting to secure checkout…');
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>

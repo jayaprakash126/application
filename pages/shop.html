@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shop — LUXE</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="nav-header" id="nav">
+    <div class="nav-inner">
+      <nav class="nav-left">
+        <a href="shop.html">Shop</a>
+        <a href="collections.html">Collections</a>
+        <a href="about.html">Atelier</a>
+      </nav>
+      <a href="../index.html" class="nav-logo">LUXE</a>
+      <nav class="nav-right">
+        <a href="#">Search</a>
+        <a href="#">Account</a>
+        <a href="cart.html" class="nav-cart">Cart <span class="cart-count" id="cartCount">0</span></a>
+      </nav>
+    </div>
+    <div class="nav-ticker">
+      <span>Free shipping on orders over ₹15,000 &nbsp;·&nbsp; New collection: The Dusk Edit &nbsp;·&nbsp; Complimentary gift wrapping available</span>
+    </div>
+  </header>
+
+  <section class="shop-hero">
+    <h1 class="shop-hero-title">All Products</h1>
+    <p class="shop-hero-sub">The complete edit — new arrivals, classics, and everything between.</p>
+  </section>
+
+  <section class="shop-layout">
+    <div class="shop-inner">
+      <!-- FILTERS -->
+      <aside class="shop-filters">
+        <h3>Filter</h3>
+        <div class="filter-group">
+          <label>Category</label>
+          <div class="filter-option"><input type="checkbox" onchange="applyFilters()" value="women" class="cat-filter"> Women</div>
+          <div class="filter-option"><input type="checkbox" onchange="applyFilters()" value="men" class="cat-filter"> Men</div>
+          <div class="filter-option"><input type="checkbox" onchange="applyFilters()" value="accessories" class="cat-filter"> Accessories</div>
+        </div>
+        <div class="filter-group">
+          <label>Availability</label>
+          <div class="filter-option"><input type="checkbox" onchange="applyFilters()" id="saleFilter"> On Sale</div>
+          <div class="filter-option"><input type="checkbox" onchange="applyFilters()" id="newFilter"> New Arrivals</div>
+        </div>
+      </aside>
+
+      <!-- PRODUCT AREA -->
+      <div>
+        <div class="shop-toolbar">
+          <span id="productCount">Showing all products</span>
+          <select class="sort-select" onchange="applyFilters()">
+            <option value="default">Sort: Featured</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="new">New Arrivals</option>
+          </select>
+        </div>
+        <div class="shop-grid" id="shopGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2026 LUXE. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/data.js"></script>
+  <script>
+    function applyFilters() {
+      const catChecks = [...document.querySelectorAll('.cat-filter:checked')].map(el => el.value);
+      const onSale = document.getElementById('saleFilter').checked;
+      const isNew = document.getElementById('newFilter').checked;
+      const sort = document.querySelector('.sort-select').value;
+
+      let filtered = [...PRODUCTS];
+      if (catChecks.length) filtered = filtered.filter(p => catChecks.includes(p.category));
+      if (onSale) filtered = filtered.filter(p => p.badge === 'Sale');
+      if (isNew) filtered = filtered.filter(p => p.badge === 'New');
+
+      if (sort === 'price-asc') filtered.sort((a,b) => a.price - b.price);
+      if (sort === 'price-desc') filtered.sort((a,b) => b.price - a.price);
+      if (sort === 'new') filtered = filtered.filter(p => p.badge === 'New').concat(filtered.filter(p => p.badge !== 'New'));
+
+      document.getElementById('shopGrid').innerHTML = filtered.map(renderProductCard).join('');
+      document.getElementById('productCount').textContent = `Showing ${filtered.length} products`;
+    }
+    applyFilters();
+  </script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product — LUXE</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="nav-header" id="nav">
+    <div class="nav-inner">
+      <nav class="nav-left">
+        <a href="shop.html">Shop</a>
+        <a href="collections.html">Collections</a>
+        <a href="about.html">Atelier</a>
+      </nav>
+      <a href="../index.html" class="nav-logo">LUXE</a>
+      <nav class="nav-right">
+        <a href="#">Search</a>
+        <a href="#">Account</a>
+        <a href="cart.html" class="nav-cart">Cart <span class="cart-count" id="cartCount">0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="pdp-layout" id="pdpLayout">
+    <!-- Rendered by JS -->
+  </div>
+
+  <!-- RELATED -->
+  <section class="featured-section" style="padding-top:0;">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">You May Also Like</h2>
+      </div>
+      <div class="products-grid" id="relatedProducts"></div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2026 LUXE. All rights reserved.</p>
+        <div class="footer-legal"><a href="#">Privacy</a><a href="#">Terms</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/data.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = parseInt(params.get('id'));
+    const product = PRODUCTS.find(p => p.id === id) || PRODUCTS[0];
+    let selectedSize = product.sizes[0];
+
+    document.title = `${product.name} — LUXE`;
+
+    function renderPDP() {
+      document.getElementById('pdpLayout').innerHTML = `
+        <div class="pdp-images">
+          <div class="pdp-main-img" style="background: ${product.color};"></div>
+          <div class="pdp-thumb-row">
+            ${[1,2,3].map((n,i) => `
+              <div class="pdp-thumb ${i===0?'active':''}" 
+                   style="background: ${product.color}; opacity: ${i===0?1:0.5};"
+                   onclick="document.querySelectorAll('.pdp-thumb').forEach(t=>t.classList.remove('active')); this.classList.add('active');"></div>
+            `).join('')}
+          </div>
+        </div>
+        <div class="pdp-info">
+          <p class="pdp-eyebrow">${product.sub}</p>
+          <h1 class="pdp-title">${product.name}</h1>
+          <p class="pdp-price">
+            ${formatPrice(product.price)}
+            ${product.originalPrice ? `<span class="product-price-original" style="font-size:16px;margin-left:12px;">${formatPrice(product.originalPrice)}</span>` : ''}
+          </p>
+          <div class="pdp-divider"></div>
+          <p class="pdp-label">Select Size</p>
+          <div class="pdp-sizes" id="sizeButtons">
+            ${product.sizes.map(s => `
+              <button class="size-btn ${s===selectedSize?'active':''}" onclick="selectSize('${s}')">${s}</button>
+            `).join('')}
+          </div>
+          <button class="pdp-add-btn" onclick="addToCart(${product.id}, selectedSize)">Add to Cart</button>
+          <button class="pdp-wishlist">Save to Wishlist</button>
+          <p class="pdp-desc">${product.desc}</p>
+          <div class="pdp-divider"></div>
+          <div class="accordion-item open">
+            <button class="accordion-trigger" onclick="toggleAccordion(this)">
+              <span>Details & Fabric</span><span>+</span>
+            </button>
+            <div class="accordion-body">
+              Crafted with precision in our partner ateliers. All garments are finished by hand and quality-checked before dispatch. Fabric composition and care instructions are printed on the interior label.
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" onclick="toggleAccordion(this)">
+              <span>Shipping & Returns</span><span>+</span>
+            </button>
+            <div class="accordion-body">
+              Complimentary shipping on all orders over ₹15,000. Delivered in 3–5 business days. Free returns within 30 days — no questions asked.
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" onclick="toggleAccordion(this)">
+              <span>Size Guide</span><span>+</span>
+            </button>
+            <div class="accordion-body">
+              Our garments are cut to a relaxed fit. If between sizes, size down for a closer fit. Detailed measurements are available in the size guide PDF.
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function selectSize(s) {
+      selectedSize = s;
+      document.querySelectorAll('.size-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent === s);
+      });
+    }
+
+    function toggleAccordion(btn) {
+      const item = btn.closest('.accordion-item');
+      item.classList.toggle('open');
+    }
+
+    renderPDP();
+
+    // Related products
+    const related = PRODUCTS.filter(p => p.id !== product.id && p.category === product.category).slice(0,4);
+    const fallback = PRODUCTS.filter(p => p.id !== product.id).slice(0,4);
+    document.getElementById('relatedProducts').innerHTML = (related.length >= 2 ? related : fallback).map(renderProductCard).join('');
+  </script>
+</body>
+</html>
