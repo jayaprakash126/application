@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     stages {
-
         stage('Install Dependencies') {
             steps {
                 dir('backend') {
@@ -10,7 +9,6 @@ pipeline {
                 }
             }
         }
-
         stage('Verify Node') {
             steps {
                 sh 'node -v'
