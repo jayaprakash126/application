@@ -36,18 +36,16 @@ pipeline {
             }
         }
         stage('Deploy to Docker Server') {
-          steps {
-             sh '''
-             ssh ubuntu@172.31.33.36 "
-             cd /home/ubuntu/application &&
-             docker build -t ecommerce-backend:v1 . &&
-             docker stop ecommerce || true &&
-             docker rm ecommerce || true &&
-             docker run -d --name ecommerce -p 3000:3000 ecommerce-backend:v1
-             "
-             '''
-         }
-      }
+    steps {
+        sh '''
+        ssh ubuntu@172.31.33.36 '
+        echo "Connected to Docker Server"
+        hostname
+        docker ps
+        '
+        '''
+    }
+}
         
     }
 }
