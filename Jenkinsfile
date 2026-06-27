@@ -39,9 +39,26 @@ pipeline {
     steps {
         sh '''
         ssh ubuntu@172.31.33.36 '
-        echo "Connected to Docker Server"
-        hostname
-        docker ps
+        cd ~/deployments
+
+        if [ ! -d application ]; then
+            git clone https://github.com/jayaprakash126/application.git
+        fi
+
+        cd application
+
+        git pull origin main
+
+        docker stop ecommerce || true
+        docker rm ecommerce || true
+        docker rmi ecommerce-backend:v1 || true
+
+        docker build -t ecommerce-backend:v1 .
+
+        docker run -d \
+          --name ecommerce \
+          -p 3000:3000 \
+          ecommerce-backend:v1
         '
         '''
     }
